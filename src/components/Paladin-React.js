@@ -6,31 +6,42 @@ import Banner from './Banner';
 import Card from "./Card";
 import cards from '../images/images.json';
 import PC_stats from './data/characterStats';
+import Body from './Body/body'
+import './paladin-react.css';
+import Modal from './Modal'
 
 // Main App
 class PaladinGame extends Component {
     state = {
+        modalFlag: true,
         currentHP: 0,
         maxHP: 0,
         rumors: 0,
         turn: 0,
         healingPotions: 0,
         rebellionLevel: 0,
-        piety: 0
+        piety: 0,
+        flag: false
     }
 
     // this function fires basically on page load!
     //  important!  huge!  I have seen the light!
     componentDidMount() {
-      console.log(PC_stats.cur_hp)
+        console.log(PC_stats.cur_hp)
 
-      this.setState({currentHP: PC_stats.cur_hp})
-      this.setState({maxHP: PC_stats.max_hp})
-      this.setState({rumors: PC_stats.rumors})
-      this.setState({turn: PC_stats.turn})
-      this.setState({rebellionLevel: PC_stats.rebellionLevel})
-      this.setState({piety: PC_stats.piety})
-      this.setState({healingPotions: PC_stats.healingPotions})
+        this.setState({ currentHP: PC_stats.cur_hp })
+        this.setState({ maxHP: PC_stats.max_hp })
+        this.setState({ rumors: PC_stats.rumors })
+        this.setState({ turn: PC_stats.turn })
+        this.setState({ rebellionLevel: PC_stats.rebellionLevel })
+        this.setState({ piety: PC_stats.piety })
+        this.setState({ healingPotions: PC_stats.healingPotions })
+
+        if (this.state.currentHP < this.state.maxHP) {
+            this.state.flag = true
+        } else {
+            this.state.flag = false
+        }
     }
 
     render() {
@@ -38,22 +49,23 @@ class PaladinGame extends Component {
         return (
             <div>
                 <Navbar
-                    currentHP={state.currentHP}
-                    maxHP={state.maxHP}
-                    rumors={state.rumors}
-                    piety={state.piety}
-                    healingPotions={state.healingPotions}
-                    turn={state.turn}
-                    rebellionLevel={state.rebellionLevel}
+                    currentHP={this.state.currentHP}
+                    maxHP={this.state.maxHP}
+                    rumors={this.state.rumors}
+                    piety={this.state.piety}
+                    healingPotions={this.state.healingPotions}
+                    turn={this.state.turn}
+                    rebellionLevel={this.state.rebellionLevel}
 
                 />
 
-                {<button data-toggle="modal" href="#myModal" type="button" className="btn btn-dark">
-                    <span className="text-left">Sir Roland</span>
-                    <br />
-                    <span>HP: </span><span id="topDivCharHP" className="bg-danger rounded px-1 pb-1 mr-1">test </span>
-                    <span> of </span><span>45</span>
-                </button>}
+                <Body>
+                </Body>
+                <div className={this.state.modalFlag == true ? "active" : "inactive"}>
+                    <Modal>
+
+                    </Modal>
+                </div>
                 <Footer />
             </div>
         )
