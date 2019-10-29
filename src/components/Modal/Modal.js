@@ -1,29 +1,41 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import PC_stats from '../data/characterStats';
+
 //import './Modal.css';
 
-class Modal extends Component {
-    // state = {
-    //     flag: Boolean,
-    //     currentHP: this.props.currentHP
-    // }
-    // health(){
-    // if (this.state.currentHP < this.state.maxHP) {
-    //     this.state.flag = true
-    // } else {
-    //     this.state.flag = false
-    // }
-    // }
 
-    render(props) {
-        return (
-<div>
-    <h1>the real modal goes here</h1>
+const CharacterModal = () => {
+    //class CharacterModal extends Component{
+    const [show, setShow] = useState(false);
 
-</div>
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
-        )
-    }
+    return (
+        <>
+            <Button variant="primary" onClick={handleShow}>
+                {PC_stats.name}
+            </Button>
 
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Modal heading</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                        Close
+                </Button>
+                    <Button variant="primary" onClick={handleClose}>
+                        Save Changes
+                </Button>
+                </Modal.Footer>
+            </Modal>
+        </>
+    );
 }
 
-export default Modal;
+
+export default CharacterModal;

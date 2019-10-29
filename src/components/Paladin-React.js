@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
+//import React, { useState } from "react";
 import Navbar from './Navbar';
 import Wrapper from './Wrapper';
 import Footer from './Footer';
@@ -8,12 +9,48 @@ import cards from '../images/images.json';
 import PC_stats from './data/characterStats';
 import Body from './Body/body'
 import './paladin-react.css';
-import Modal from './Modal'
+//import Modal from './Modal'
+import Container from "react-bootstrap/Container";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+
+//import "./App.css";
+
+const Example = () => {
+  const [show, setShow] = useState(false);
+ 
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+ 
+  return (
+	<>
+  	<Button variant="primary" onClick={handleShow}>
+    	Launch demo modal
+  	</Button>
+ 
+  	<Modal show={show} onHide={handleClose}>
+    	<Modal.Header closeButton>
+      	<Modal.Title>Modal heading</Modal.Title>
+    	</Modal.Header>
+    	<Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+    	<Modal.Footer>
+      	<Button variant="secondary" onClick={handleClose}>
+        	Close
+      	</Button>
+      	<Button variant="primary" onClick={handleClose}>
+        	Save Changes
+ 	     </Button>
+    	</Modal.Footer>
+  	</Modal>
+	</>
+  );
+}
+
 
 // Main App
 class PaladinGame extends Component {
     state = {
-        modalFlag: true,
+        //modalFlag: true,
         currentHP: 0,
         maxHP: 0,
         rumors: 0,
@@ -29,6 +66,7 @@ class PaladinGame extends Component {
     componentDidMount() {
         console.log(PC_stats.cur_hp)
 
+        this.setState({ charName: PC_stats.name})
         this.setState({ currentHP: PC_stats.cur_hp })
         this.setState({ maxHP: PC_stats.max_hp })
         this.setState({ rumors: PC_stats.rumors })
@@ -49,6 +87,7 @@ class PaladinGame extends Component {
         return (
             <div>
                 <Navbar
+                    charName={this.state.charName}
                     currentHP={this.state.currentHP}
                     maxHP={this.state.maxHP}
                     rumors={this.state.rumors}
@@ -61,11 +100,8 @@ class PaladinGame extends Component {
 
                 <Body>
                 </Body>
-                <div className={this.state.modalFlag == true ? "active" : "inactive"}>
-                    <Modal>
-
-                    </Modal>
-                </div>
+                
+                {/* <Example /> */}
                 <Footer />
             </div>
         )

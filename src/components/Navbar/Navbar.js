@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './Navbar.css';
+import CharacterModal from '../Modal'
 
 class Navbar extends Component {
     // state = {
@@ -26,43 +27,48 @@ class Navbar extends Component {
 
                         <button type="button" className="btn btn-dark text-left">The Grail Quest</button>
                         <button data-toggle="modal" href="#myModal" type="button" className="btn btn-dark" >
-                            <span id="topDivCharName" className="text-left">Sir Roland</span>
+                            <span id="topDivCharName" className="text-left">{this.props.charName}</span>
                             <br />
                             <span>HP: </span><span id="topDivCurHP" className={`${this.props.flag == true ? 'bg-success' : 'bg-danger'} rounded px-1 pb-1 mr-1`}>{this.props.currentHP} </span>
                             <span> of </span><span id="topDivMaxHP">{this.props.maxHP}</span>
                         </button>
 
+                        <CharacterModal 
+                          charName={this.props.charName}
+                        />
+
                         <div className="pt-4 text-center">
                             Piety
                     <br />
-                            <span id="topDivPiety">1</span>
+                            <span id="topDivPiety">{this.props.piety}</span>
                         </div>
 
                         <button type="button" className="btn btn-dark text-center">Healing <br /> Potions
                     <br />
-                            <span id="topDivPotions">2</span>
+                            <span id="topDivPotions">{this.props.healingPotions}</span>
                         </button>
 
                         <div className="pt-4 pr-2 text-center">
                             Rumors
                     <br />
-                            <span id="topDivRumors">3</span>
+                            <span id="topDivRumors">{this.props.rumors}</span>
                         </div>
 
                         <div className="pt-2 pr-2 text-center">
                             Rebellion<br />Level
                     <br />
-                            <span id="topDivRebellionLevel">1</span>
+                            <span id="topDivRebellionLevel">{this.props.rebellionLevel}</span>
                         </div>
 
                         <div className="pt-0">
                             <span className="text-center pr-2">Turn: </span>
                             <br />
-                            <p id="topDivTurnCounter" className="text-center">1</p>
+                            <p id="topDivTurnCounter" className="text-center">{this.props.turn}</p>
                         </div>
                     </div>
                 </div>
-<button onClick={(props) => this.props.setState(modalFlag=true)}>hellolllllllllllllll</button>
+                
+{/* <button onClick={(props) => this.props.setState(modalFlag=true)}>hellolllllllllllllll</button> */}
             </div>
         )
     }
