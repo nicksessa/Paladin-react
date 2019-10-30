@@ -10,7 +10,7 @@ class Body extends Component {
 
     render() {
         return (
-            <div className="border">
+            <div className="myBlueBorder">
                 <h1>
                     main body
             </h1>

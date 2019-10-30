@@ -1,7 +1,18 @@
-.border {
+.myGreenBorder {
+    border: 3px solid green;
+}
+
+.myBlueBorder {
+    border: 3px solid blue;
+}
+
+.myRedBorder {
     border: 3px solid red;
 }
 
+.myYellowBorder {
+    border: 3px solid yellow;
+}
 .inactive {
     display: none;
 }
