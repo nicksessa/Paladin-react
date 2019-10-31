@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+//import $ from 'jquery';
 import './Navbar.css';
 import CharacterModal from '../Modal'
 
@@ -14,7 +15,12 @@ class Navbar extends Component {
     //     this.state.flag = false
     // }
     // }
-    
+    componentDidMount() {
+      /* $('#myCollapsible').on('click', 'hidden.bs.collapse', function () {
+            alert('#myCollapsible -- hidden.bs.collapse');
+        }) */
+    }
+
     render(props) {
         return (
 

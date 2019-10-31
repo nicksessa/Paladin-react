@@ -1,0 +1,47 @@
+.parchment {
+    background-image: url("http://drive.google.com/uc?export=view&id=1ekfXcSNZ2xz4JmwGsq1xjx1ywGM5J7Sw");
+    
+    /* Background image is centered vertically and horizontally at all times */
+    background-position: center center;
+    /* Background image doesn't tile */
+    background-repeat: no-repeat;
+    /* Background image is fixed in the viewport so that it doesn't move when 
+     the content's height is greater than the image's height */
+    background-attachment: fixed;
+    /* This is what makes the background image rescale based
+     on the container's size */
+    background-size: cover;
+    /* Set a background color that will be displayed
+     while the background image is loading */
+    background-color: #464646;
+    background-size: 100% 100%;
+    box-shadow: 7px 7px 8px black, -4px -1px 8px black;
+    box-shadow: 7px 7px 8px #1c1d1f, -4px -1px 8px #1c1d1f;
+    
+  }
+
+  .sideMenuBtn:hover {
+    color: blue;
+    text-shadow: 1px 1px 2px black, 0 0 25px yellow, 0 0 5px red;
+    color: black;
+    text-shadow: 1px 1px 2px black, 0 0 25px yellow, 0 0 5px red;
+    font-size: x-large;
+  }
+  
+  .collapse {
+    display: none
+  }
+
+  .collapse.in {
+    display: block
+  }
+
+  .sideMenuBtn {
+    color: black;
+    background-color:transparent;
+  }
+
+  .textBlock-bg {
+    opacity: 0.9;
+    color: blanchedalmond;
+  }
