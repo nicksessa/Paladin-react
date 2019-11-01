@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
+import Button from "react-bootstrap/Button";
+import {rollDie, rollJourneyTable} from '../../utils/functionsDir'
 import Story from './Story/story'
+import StoryTitle from './StoryTitle'
+import StoryBody from './StoryBody'
 import './body.css';
 import $ from 'jquery';
 
@@ -88,16 +92,28 @@ class Body extends Component {
                     <div className="col">
                         <div className="d-flex flex-wrap">
                             <div id="gameTableTitle" className="px-4 py-2 mb-2 bg-dark rounded shadow-sm textBlock-bg">
-                                GAME TABLE TITLE
+                              <StoryTitle titleText={this.props.titleText} />
                             </div>
                         </div>
 
                         <div className="d-flex flex-wrap">
                             <div id="gameTableText" className="px-4 py-2 bg-dark rounded shadow-sm textBlock-bg">
-                                --- GAME TABLE TEXT ---
+                                <StoryBody bodyText={this.props.bodyText} />
                             </div>
                         </div>
                         <div id="gameButtons">
+                            <div className="mt-2">
+                                
+                                {/* <button onClick="rollJourneyTable()" data-id="rollJourneyBtn" type="button" className="btn btn-dark rounded-pill mx-2 btn-sm">
+                                    <i className="mt-2"></i>
+                                    Journey On
+                                </button> */}
+
+                                <Button className="btn btn-dark pills-rounded mx-2 btn-sm" onClick={()=> rollJourneyTable()}>
+                                    Journey Onward
+                                </Button>
+
+                            </div>
                         </div>
                     </div>
                     {/* <!-- column 2--> */}
