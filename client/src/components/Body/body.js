@@ -6,6 +6,25 @@ import StoryTitle from './StoryTitle'
 import StoryBody from './StoryBody'
 import './body.css';
 import $ from 'jquery';
+import {journeyTable} from '../data/tableData';
+
+function StartButton(props) {
+	return (
+	  <Button className = "pills-rounded" variant="dark" onClick={props.onClick}>
+			Start
+	  </Button>
+	)
+}
+
+function RollDice(props) {
+	return (
+	  <Button className = "pills-rounded" variant="dark" onClick={props.onClick}>
+			Roll Dice
+	  </Button>
+	)
+}
+
+
 
 // Main App
 class Body extends Component {
@@ -14,10 +33,17 @@ class Body extends Component {
     }
     constructor() {
         super();
+        this.rollJourney = this.rollJourney.bind(this)
+        this.rollDice = this.rollDice.bind(this)
 
         // Initial state
-        this.state = { open: false };
-
+        this.state = { 
+            open: false,
+            eventTitle: "Event Title",
+            eventBody: "Click the Start button to Start the Game",
+		    num: 0,
+		    clickedStart: false,
+        };
     }
 
     toggle() {
@@ -45,7 +71,34 @@ class Body extends Component {
 
     }
 
+    rollDice() {	
+		let mynum = rollDie(6)
+		this.setState({num: mynum})
+	}
+
+
+    rollJourney() {
+		let mynum = rollDie(6)
+		//alert("you rolled: " + mynum)
+		//this.setState({num: mynum})
+		
+		let eventTitle = journeyTable[mynum -1]
+		//alert(myHead)
+		this.setState({eventTitle: "Journey on..."})
+		this.setState({eventBody: journeyTable[mynum -1]})
+		//this.setState({buttons: buttonString})
+		this.setState({clickedStart: true})
+	}
+
+
     render() {
+        const clickedStart = this.state.clickedStart
+        let button
+        if (clickedStart) {
+            button = <RollDice onClick={this.rollDice} />
+        } else {
+            button = <StartButton onClick={this.rollJourney} />
+        }
         return (
 
             <div className="myBlueBorder">
@@ -92,26 +145,29 @@ class Body extends Component {
                     <div className="col">
                         <div className="d-flex flex-wrap">
                             <div id="gameTableTitle" className="px-4 py-2 mb-2 bg-dark rounded shadow-sm textBlock-bg">
-                              <StoryTitle titleText={this.props.titleText} />
+                              {/* <StoryTitle titleText={this.props.titleText} /> */}
+                              {this.state.eventTitle}
                             </div>
                         </div>
 
                         <div className="d-flex flex-wrap">
                             <div id="gameTableText" className="px-4 py-2 bg-dark rounded shadow-sm textBlock-bg">
-                                <StoryBody bodyText={this.props.bodyText} />
+                                {/* <StoryBody bodyText={this.props.bodyText} /> */}
+                                {this.state.eventBody}
+                                <p>Die Roll: {this.state.num}</p>
                             </div>
                         </div>
                         <div id="gameButtons">
                             <div className="mt-2">
-                                
+                              {button}
                                 {/* <button onClick="rollJourneyTable()" data-id="rollJourneyBtn" type="button" className="btn btn-dark rounded-pill mx-2 btn-sm">
                                     <i className="mt-2"></i>
                                     Journey On
                                 </button> */}
 
-                                <Button className="btn btn-dark pills-rounded mx-2 btn-sm" onClick={()=> rollJourneyTable()}>
+                                {/* <Button className="btn btn-dark pills-rounded mx-2 btn-sm" onClick={()=> rollJourneyTable()}>
                                     Journey Onward
-                                </Button>
+                                </Button> */}
 
                             </div>
                         </div>
