@@ -16,6 +16,20 @@ const bodyArray = ["You have found an inn at a Crossroads. You may choose to sta
       "If the Rebellion Level is 4, roll on the Challenge Table (7). Otherwise, roll on the Encounter Table (3).",
       "If the Rebellion Level is 4, roll on the Challenge Table (7). Otherwise, roll on the Traitors Attack Table (4)."]
 
+const encounterTable = {
+      2: "Morgana",
+      3: "Castle Perilous",
+      4: "Village of Plague and Death",
+      5: "Grail Castle",
+      6: "Minions",
+      7: "A Knight Issues a Challenge!",
+      8: "Minions",
+      9: "A Heroic Quest",
+      10: "Village of Poverty and Famine",
+      11: "Test of Piety",
+      12: "Merlin"
+    }
+
 function rollDie (dieType) {
   let result = Math.floor(Math.random() * dieType + 1);
   return result
@@ -73,12 +87,13 @@ class SimpleExample extends React.Component {
     this.rollInn = this.rollInn.bind(this)
     
     this.state = {
-    count: 0,
-		myH1: "Quest for the Grail",
-    myH2: "Click the Start button to Start the Game",
-		num: 0,
-		clickedStart: false,
-    journeyRoll: 0,
+      count: 0,
+      myH1: "Quest for the Grail",
+      myH2: "Click the Start button to Start the Game",
+      num: 0,
+      clickedStart: false,
+      journeyRoll: 0,
+      encounterRoll: 0,
     };
   }
   
@@ -102,7 +117,21 @@ class SimpleExample extends React.Component {
 	}
   
   rollEncounter() {
-    alert("Encounter selected!")
+    let firstRoll = rollDie(6)
+    let secondRoll = rollDie(6)
+    let totalRoll = firstRoll + secondRoll
+    
+    //totalRoll = 7
+    this.setState({encounterRoll: totalRoll})
+    
+    //altEncounter = false
+    alert("Roll: (" + firstRoll + " + " + secondRoll + ") = " + totalRoll)
+    let theEncounter = encounterTable[totalRoll]
+    let myHead = "An Encounter"
+		alert(theEncounter)
+    
+		this.setState({myH1: myHead})
+		this.setState({myH2: theEncounter})
   }
   
   rollInn() {
@@ -172,6 +201,7 @@ class SimpleExample extends React.Component {
             let newTitle = "Journey - A Challenge!"
             this.setState({myH1: newTitle})
           } else {
+            
             // go to encounter
             encounterBtn = <EncounterButton onClick={this.rollEncounter} />
             //let newTitle = this.state.myH1 + " - Encounter"
