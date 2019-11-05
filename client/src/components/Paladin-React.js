@@ -25,8 +25,9 @@ class PaladinGame extends Component {
         rebellionLevel: 0,
         piety: 0,
         flag: false,
-        storyTitle: "Default Title",
-        storyBody: "STORY TEXT"
+        eventTitle: "Quest for the Grail",
+        eventBody: "Event text",
+        money: 0
     }
 
     // this function fires basically on page load!
@@ -34,8 +35,8 @@ class PaladinGame extends Component {
     componentDidMount() {
         console.log(PC_stats.cur_hp)
 
-        this.setState({storyTitle: "The Journey Continues..."})
-        this.setState({storyBody: "Click below to continue the journey."})
+        this.setState({eventTitle: "The Quest for the Grail"})
+        this.setState({eventBody: "Click below to continue the journey."})
 
         this.setState({ charName: PC_stats.name})
         this.setState({ currentHP: PC_stats.cur_hp })
@@ -45,6 +46,7 @@ class PaladinGame extends Component {
         this.setState({ rebellionLevel: PC_stats.rebellionLevel })
         this.setState({ piety: PC_stats.piety })
         this.setState({ healingPotions: PC_stats.healingPotions })
+        this.setState({ money: PC_stats.money})
 
         if (this.state.currentHP < this.state.maxHP) {
             this.state.flag = true
@@ -66,11 +68,11 @@ class PaladinGame extends Component {
                     healingPotions={this.state.healingPotions}
                     turn={this.state.turn}
                     rebellionLevel={this.state.rebellionLevel}
-
+                    money={this.state.money}
                 />
 
                 <Body 
-                    titleText = {this.state.storyTitle}
+                    eventTitle = {this.state.eventTitle}
                     bodyText = {this.state.storyBody}
                 >
                 </Body>

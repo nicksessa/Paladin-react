@@ -6,7 +6,13 @@ import StoryTitle from './StoryTitle'
 import StoryBody from './StoryBody'
 import './body.css';
 import $ from 'jquery';
-import {journeyTable} from '../data/tableData';
+import {journeyTable, encounterTable} from '../data/tableData';
+import playerCharacterStats from '../data/characterStats';
+
+const buttonStyle = {
+    //width: "100px",
+    marginBottom: '10px',
+  };
 
 function StartButton(props) {
 	return (
@@ -24,6 +30,29 @@ function RollDice(props) {
 	)
 }
 
+function JourneyButton(props) {
+	return (
+	  <Button  className="pills-rounded" variant="dark" onClick={props.onClick}>
+			Journey On...
+	</Button>
+	)
+}
+
+function EncounterButton(props) {
+	return (
+	  <Button  className="pills-rounded" variant="dark" onClick={props.onClick}>
+			Goto Encounter
+	</Button>
+	)
+}
+
+function InnButton(props) {
+	return (
+	  <Button  className="pills-rounded" variant="dark" onClick={props.onClick}>
+			Goto Inn
+	</Button>
+	)
+}
 
 
 // Main App
@@ -35,14 +64,20 @@ class Body extends Component {
         super();
         this.rollJourney = this.rollJourney.bind(this)
         this.rollDice = this.rollDice.bind(this)
+        this.clickStart = this.clickStart.bind(this)
+        this.rollEncounter = this.rollEncounter.bind(this)
+        this.rollInn = this.rollInn.bind(this)
 
         // Initial state
         this.state = { 
             open: false,
-            eventTitle: "Event Title",
+            eventTitle: "{==  Quest for the Grail  ==}",
             eventBody: "Click the Start button to Start the Game",
 		    num: 0,
-		    clickedStart: false,
+            clickedStart: false,
+            journeyRoll: 0,
+            encounterRoll: 0,
+            
         };
     }
 
@@ -80,24 +115,161 @@ class Body extends Component {
     rollJourney() {
 		let mynum = rollDie(6)
 		//alert("you rolled: " + mynum)
-		//this.setState({num: mynum})
-		
-		let eventTitle = journeyTable[mynum -1]
+		this.setState({journeyRoll: mynum})
+
 		//alert(myHead)
-		this.setState({eventTitle: "Journey on..."})
+        //this.setState({eventTitle: "Journey on..."})
+
+        switch(mynum) {
+            case 1: 
+                this.setState({eventTitle: "Journey - Crossroads"})
+            break;
+            case 2: 
+                this.setState({eventTitle: "Journey - Inn"})
+            break;
+            case 3: 
+                this.setState({eventTitle: "Journey - Lost!"})
+            break;
+            case 4: 
+                this.setState({eventTitle: "Journey - An Encounter!"})
+            break;
+            case 5: 
+                if (playerCharacterStats.rebellionLevel > 3) {
+                    this.setState({eventTitle: "Journey - A Challenge!"})
+                } else {
+                    this.setState({eventTitle: "Journey - An Encounter!"})
+                }
+            break;
+            case 6: 
+                if (playerCharacterStats.rebellionLevel > 3) {
+                    this.setState({eventTitle: "Journey - A Challenge!"})
+                } else {
+                    this.setState({eventTitle: "Journey - Traitors!"})
+                }
+            break;
+        }
+
+        playerCharacterStats.eventTitle = "Journey on..."
 		this.setState({eventBody: journeyTable[mynum -1]})
 		//this.setState({buttons: buttonString})
 		this.setState({clickedStart: true})
 	}
 
+    rollEncounter() {
+        let firstRoll = rollDie(6)
+        let secondRoll = rollDie(6)
+        let totalRoll = firstRoll + secondRoll
+        
+        //totalRoll = 7
+        this.setState({encounterRoll: totalRoll})
+        
+        //altEncounter = false
+        alert("Roll: (" + firstRoll + " + " + secondRoll + ") = " + totalRoll)
+        let theEncounter = encounterTable[totalRoll]
+        let myHead = "An Encounter"
+        alert(theEncounter)
+        
+        //this.setState({eventTitle: myHead})
+        playerCharacterStats.eventTitle = "An Encounter"
+        this.setState({eventBody: theEncounter})
+      }
+      
+      rollInn() {
+        alert("Stay at the inn")
+      }
 
-    render() {
+      componentDidMount() {
+          //this.setState({eventTitle: playerCharacterStats.even})
+      }
+      
+      clickStart() {
+        let mynum = rollDie(6)
+            //alert("you rolled: " + mynum)
+            //this.setState({num: mynum})
+            this.setState({journeyRoll: mynum})
+        
+            let myHead = "The Journey Continues..."
+            //alert(myHead)
+            this.setState({eventTitle: "The Journey Continues..."})
+
+            this.setState({eventBody: journeyTable[mynum -1]})
+            //this.setState({buttons: buttonString})
+            this.setState({clickedStart: true})
+      }
+
+    render(props) {
         const clickedStart = this.state.clickedStart
-        let button
+        let journeyRoll = this.state.journeyRoll
+        let startBtn;
+        let journeyBtn;
+        let rollBtn;
+        let encounterBtn;
+        let innBtn;
+        let rebellionLevel = playerCharacterStats.rebellionLevel;
+
         if (clickedStart) {
-            button = <RollDice onClick={this.rollDice} />
+            rollBtn = <RollDice onClick={this.rollDice} />
+            if (journeyRoll == 1) {
+                // crossroads = choice of either inn or encounter
+                journeyBtn = <JourneyButton onClick={this.rollJourney} />
+                encounterBtn = <EncounterButton onClick={this.rollEncounter} />
+                //why can't I append some text to the value of the state object?
+                //let newTitle = this.state.myH1 + " - Crossroads"
+                let newTitle = "Journey - Crossroads"
+                playerCharacterStats.eventTitle = newTitle
+              } else if (journeyRoll == 2) {
+                // inn or bypass
+                journeyBtn = <JourneyButton onClick={this.rollJourney} />
+                innBtn = <InnButton onClick={this.rollInn} />
+                //let newTitle = this.state.myH1 + " - Inn"
+                let newTitle = "Journey - Inn"
+                playerCharacterStats.eventTitle = newTitle
+              } else if (journeyRoll == 3) {
+                // lost
+                journeyBtn = <JourneyButton onClick={this.rollJourney} />
+                //let newTitle = this.state.myH1 + " - Lost!"
+                let newTitle = "Journey - Lost!"
+                playerCharacterStats.eventTitle = newTitle
+              } else if (journeyRoll == 4) {
+                // Encounter.  No journey button here
+                encounterBtn = <EncounterButton onClick={this.rollEncounter} />
+                //let newTitle = this.state.myH1 + " - Encounter"
+                let newTitle = "Journey - Encounter"
+                playerCharacterStats.eventTitle = newTitle
+              } else if (journeyRoll == 5) {
+                // Challenge or Encounter
+                if (rebellionLevel > 3) {
+                  // go to challenge
+                  //let newTitle = this.state.myH1 + " - A Challenge!"
+                  let newTitle = "Journey - A Challenge!"
+                  playerCharacterStats.eventTitle = newTitle
+                } else {
+                  
+                  // go to encounter
+                  encounterBtn = <EncounterButton onClick={this.rollEncounter} />
+                  //let newTitle = this.state.myH1 + " - Encounter"
+                  let newTitle = "Journey - Encounter"
+                  playerCharacterStats.eventTitle = newTitle
+                }
+                journeyBtn = <JourneyButton onClick={this.rollJourney} />
+              } else if (journeyRoll == 6) {
+                // Challenge or Traitors
+                if (rebellionLevel > 3) {
+                  //let newTitle = this.state.myH1 + " - A Challenge!"
+                  let newTitle = "Journey - A Challenge!"
+                  playerCharacterStats.eventTitle = newTitle
+                } else {
+                  //let newTitle = this.state.myH1 + " - Traitors!"
+                  let newTitle = "Journey - Traitors!"
+                  playerCharacterStats.eventTitle = newTitle
+                }
+                journeyBtn = <JourneyButton onClick={this.rollJourney} />
+              } else {
+                alert("Invalid roll!" + journeyRoll)
+              }
         } else {
-            button = <StartButton onClick={this.rollJourney} />
+
+            startBtn = <StartButton onClick={this.rollJourney} />
         }
         return (
 
@@ -105,8 +277,8 @@ class Body extends Component {
                 <h1>
                     main body
                 </h1>
-                <Story />
-                <div className={this.flag1 == true ? "bg-success" : "bg-danger"}>  fffffffff</div>
+                {/* <Story /> */}
+                {/* <div className={this.flag1 == true ? "bg-success" : "bg-danger"}>  fffffffff</div> */}
 
 
                 <div className="row bodyDiv">
@@ -157,18 +329,13 @@ class Body extends Component {
                                 <p>Die Roll: {this.state.num}</p>
                             </div>
                         </div>
-                        <div id="gameButtons">
+                        <div id="gameButtons" className="d-flex mt-2 justify-content-between">
                             <div className="mt-2">
-                              {button}
-                                {/* <button onClick="rollJourneyTable()" data-id="rollJourneyBtn" type="button" className="btn btn-dark rounded-pill mx-2 btn-sm">
-                                    <i className="mt-2"></i>
-                                    Journey On
-                                </button> */}
-
-                                {/* <Button className="btn btn-dark pills-rounded mx-2 btn-sm" onClick={()=> rollJourneyTable()}>
-                                    Journey Onward
-                                </Button> */}
-
+                            {startBtn}
+                            {rollBtn}
+                            {journeyBtn}
+                            {encounterBtn}
+                            {innBtn}
                             </div>
                         </div>
                     </div>

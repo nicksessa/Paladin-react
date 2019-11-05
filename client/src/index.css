@@ -12,6 +12,7 @@ body {
   color: blanchedalmond;
   /* Location of the image */
   background-image: url("https://cdna.artstation.com/p/assets/images/images/001/796/342/large/andreas-rocha-oldforestb02.jpg?1452860763");
+  background-image: url("./images/andreas-rocha-oldforestb02.jpg");
 
   /* Background image is centered vertically and horizontally at all times */
   background-position: center center;

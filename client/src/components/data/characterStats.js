@@ -14,7 +14,8 @@ let playerCharacterStats = {
   sideQuests: 0,
   findRetainerModifier: 0,
   numRetainers: 0,
-  numMerchants: 0
+  numMerchants: 0,
+  eventTitle: ""
 }
 
 export default playerCharacterStats;
