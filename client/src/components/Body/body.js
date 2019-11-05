@@ -273,9 +273,10 @@ class Body extends Component {
         }
         return (
 
-            <div className="myBlueBorder">
+            // <div className="myBlueBorder">
+            <div className="mt-5">
                 <h1>
-                    main body
+                   
                 </h1>
                 {/* <Story /> */}
                 {/* <div className={this.flag1 == true ? "bg-success" : "bg-danger"}>  fffffffff</div> */}

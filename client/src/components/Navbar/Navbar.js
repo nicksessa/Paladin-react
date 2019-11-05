@@ -8,13 +8,7 @@ class Navbar extends Component {
     //     flag: Boolean,
     //     currentHP: this.props.currentHP
     // }
-    // health(){
-    // if (this.state.currentHP < this.state.maxHP) {
-    //     this.state.flag = true
-    // } else {
-    //     this.state.flag = false
-    // }
-    // }
+
     componentDidMount() {
         /* $('#myCollapsible').on('click', 'hidden.bs.collapse', function () {
               alert('#myCollapsible -- hidden.bs.collapse');
@@ -35,7 +29,7 @@ class Navbar extends Component {
                             <table className="table-condensed">
                                 <thead>
                                     <tr>
-                                        <th className="text-center px-2">
+                                        <th className="text-center">
                                             <CharacterModal
                                                 charName={this.props.charName}
                                             />
@@ -52,7 +46,7 @@ class Navbar extends Component {
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td className="px-2">
+                                        <td className="px-4">
                                             <span>HP: </span><span id="topDivCurHP" className={`${this.props.flag == true ? 'bg-success' : 'bg-danger'} rounded px-1 pb-1 mr-1`}>{this.props.currentHP} </span>
                                             <span> of </span><span id="topDivMaxHP">{this.props.maxHP}</span>
                                             {/* <span id="topDivCurHP" className="bg-success rounded px-1 pb-1 mr-1">999 </span>
