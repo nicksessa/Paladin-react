@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import Button from "react-bootstrap/Button";
 import {rollDie, rollJourneyTable} from '../../utils/functionsDir'
-import Story from './Story/story'
-import StoryTitle from './StoryTitle'
-import StoryBody from './StoryBody'
 import './body.css';
 import $ from 'jquery';
 import {journeyTable, encounterTable} from '../data/tableData';
 import playerCharacterStats from '../data/characterStats';
+import LoginRegisterModal from '../Modal/LoginRegisterModal'
 
 const buttonStyle = {
     //width: "100px",
@@ -54,6 +52,13 @@ function InnButton(props) {
 	)
 }
 
+function ChallengeButton(props) {
+	return (
+	  <Button className="pills-rounded" variant="dark" onClick={props.onClick}>
+			Goto Challenge!
+	</Button>
+	)
+}
 
 // Main App
 class Body extends Component {
@@ -67,6 +72,7 @@ class Body extends Component {
         this.clickStart = this.clickStart.bind(this)
         this.rollEncounter = this.rollEncounter.bind(this)
         this.rollInn = this.rollInn.bind(this)
+        this.rollChallenge = this.rollChallenge.bind(this)
 
         // Initial state
         this.state = { 
@@ -77,7 +83,12 @@ class Body extends Component {
             clickedStart: false,
             journeyRoll: 0,
             encounterRoll: 0,
-            
+            clickedJourney: false,
+            clickedEncounter: false,
+            clickedInn: false,
+            clickedChallenge: false,
+            innRoll: 0,
+            challengeRoll: 0,
         };
     }
 
@@ -152,7 +163,8 @@ class Body extends Component {
         playerCharacterStats.eventTitle = "Journey on..."
 		this.setState({eventBody: journeyTable[mynum -1]})
 		//this.setState({buttons: buttonString})
-		this.setState({clickedStart: true})
+        this.setState({clickedStart: true})
+        this.setState({clickedJourney: true})
 	}
 
     rollEncounter() {
@@ -167,15 +179,31 @@ class Body extends Component {
         alert("Roll: (" + firstRoll + " + " + secondRoll + ") = " + totalRoll)
         let theEncounter = encounterTable[totalRoll]
         let myHead = "An Encounter"
-        alert(theEncounter)
+        //alert(theEncounter)
+        theEncounter = 2
+        switch (theEncounter) {
+        case 2: 
+            this.setState({eventTitle: "An Encounter Morgana!"})
+            this.setState({eventBody: "Morgana uses trickery to make you forget..."})
+            // make three saves
+        break;
+        }
         
+        this.setState({clickedEncounter: true})
+        this.setState({clickedJourney: false})
         //this.setState({eventTitle: myHead})
         playerCharacterStats.eventTitle = "An Encounter"
-        this.setState({eventBody: theEncounter})
+        //this.setState({eventBody: theEncounter})
       }
       
       rollInn() {
         alert("Stay at the inn")
+        this.setState({clickedInn: true})
+      }
+
+      rollChallenge(){
+        alert("You have been challenged to a duel!")
+        this.setState({clickedChallenge: true})
       }
 
       componentDidMount() {
@@ -195,19 +223,34 @@ class Body extends Component {
             this.setState({eventBody: journeyTable[mynum -1]})
             //this.setState({buttons: buttonString})
             this.setState({clickedStart: true})
+            this.setState({clickedJourney: true})
       }
 
     render(props) {
         const clickedStart = this.state.clickedStart
+        let clickedJourney = this.state.clickedJourney
+        let clickedEncounter = this.state.clickedEncounter
+        let clickedInn = this.state.clickedInn
+        let clickedChallenge = this.state.clickedChallenge
+
         let journeyRoll = this.state.journeyRoll
+        let encounterRoll = this.state.encounterRoll
+        let innRoll = this.state.innRoll
+        let challengeRoll = this.state.challengeRoll
+
         let startBtn;
         let journeyBtn;
         let rollBtn;
         let encounterBtn;
         let innBtn;
+
         let rebellionLevel = playerCharacterStats.rebellionLevel;
 
-        if (clickedStart) {
+        if (!clickedStart) {
+            startBtn = <StartButton onClick={this.clickStart} />
+        }
+
+        if (clickedJourney) {
             rollBtn = <RollDice onClick={this.rollDice} />
             if (journeyRoll == 1) {
                 // crossroads = choice of either inn or encounter
@@ -267,10 +310,38 @@ class Body extends Component {
               } else {
                 alert("Invalid roll!" + journeyRoll)
               }
-        } else {
+        } 
 
-            startBtn = <StartButton onClick={this.rollJourney} />
-        }
+        if (clickedEncounter) {
+            // display buttons depending upon the roll
+            encounterRoll = 2
+            switch (encounterRoll) {
+              case 2: 
+                journeyBtn = <JourneyButton onClick={this.rollJourney} />
+              break;
+            }
+          }
+          if (clickedInn) {
+            // display buttons depending upon the roll
+            innRoll = 2
+            //alert("clicked journey: " + clickedJourney)
+            switch (innRoll) {
+              case 2: 
+                journeyBtn = <JourneyButton onClick={this.rollJourney} />
+              break;
+            }
+          }
+          
+          if (clickedChallenge) {
+            // display buttons depending upon the roll
+            challengeRoll = 2
+            //alert("clicked journey: " + clickedJourney)
+            switch (challengeRoll) {
+              case 2: 
+                journeyBtn = <JourneyButton onClick={this.rollJourney} />
+              break;
+            }
+          }
         return (
 
             // <div className="myBlueBorder">
@@ -298,7 +369,11 @@ class Body extends Component {
                                     <div id="demo" className={"collapse" + (this.state.open ? ' in' : '')}>
                                         <div className="bg-dark d-flex flex-wrap textBlock-bg parchment rounded">
                                             <div className="btn-group-vertical px-2">
-                                                <button type="button" className="btn sideMenuBtn text-left">Sign In/Sign Up</button>
+                                            <LoginRegisterModal>
+                                                Sign In/Register
+                                                </LoginRegisterModal>                                              
+                                            
+                                                
 
                                                 <button type="button" className="btn sideMenuBtn text-left">Save Game</button>
 
