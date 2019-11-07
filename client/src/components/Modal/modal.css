@@ -2,3 +2,18 @@
 
     background-color: darkslategray;
 }
+
+.sideMenuBtn:hover {
+    color: blue;
+    text-shadow: 1px 1px 2px black, 0 0 25px yellow, 0 0 5px red;
+    color: black;
+    text-shadow: 1px 1px 2px black, 0 0 25px yellow, 0 0 5px red;
+    font-size: x-large;
+    background-color:transparent;
+  }
+
+  .sideMenuBtn {
+    color: black;
+    background-color:transparent;
+    border: none;
+  }

@@ -7,7 +7,7 @@ import './modal.css';
 //import './Modal.css';
 
 
-const LoginRegisterModal = () => {
+const RegisterModal = () => {
     //class CharacterModal extends Component{
     const [show, setShow] = useState(false);
 
@@ -17,8 +17,8 @@ const LoginRegisterModal = () => {
     //const myHeading = {PC_stats.name}
     return (
         <>
-            <Button variant="dark" onClick={handleShow}>
-                Sign In/Register
+            <Button className="btn sideMenuBtn text-left" onClick={handleShow}>
+                Register
             </Button>
 
             <Modal show={show} onHide={handleClose}>
@@ -28,7 +28,19 @@ const LoginRegisterModal = () => {
                 <Modal.Body  className="myBackgroundColor">
                     
                 <div>
-                    login/register
+                    <form action="/controllers/register-controller" method="POST">  
+    
+                    <div className="form-group">
+                        <label htmlFor="userNameInput">Username</label>
+                        <input type="text" id="userNameInput" name="user_name" className="form-control form-control-lg" />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="userPasswordInput">Password</label>
+                        <input type="password" id="userPasswordInput" name="password" className="form-control form-control-lg" />
+                    </div>
+                        
+                    <input type="submit" value="Submit" />  
+                    </form>
                 </div>
                         
                 
@@ -37,9 +49,7 @@ const LoginRegisterModal = () => {
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                 </Button>
-                    <Button variant="primary" onClick={handleClose}>
-                        Save Changes
-                </Button>
+                    
                 </Modal.Footer>
             </Modal>
         </>
@@ -47,4 +57,4 @@ const LoginRegisterModal = () => {
 }
 
 
-export default LoginRegisterModal;
+export default RegisterModal;

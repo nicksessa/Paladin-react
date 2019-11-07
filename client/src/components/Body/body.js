@@ -5,7 +5,8 @@ import './body.css';
 import $ from 'jquery';
 import {journeyTable, encounterTable} from '../data/tableData';
 import playerCharacterStats from '../data/characterStats';
-import LoginRegisterModal from '../Modal/LoginRegisterModal'
+import LoginModal from '../Modal/LoginModal'
+import RegisterModal from '../Modal/RegisterModal'
 
 const buttonStyle = {
     //width: "100px",
@@ -369,9 +370,12 @@ class Body extends Component {
                                     <div id="demo" className={"collapse" + (this.state.open ? ' in' : '')}>
                                         <div className="bg-dark d-flex flex-wrap textBlock-bg parchment rounded">
                                             <div className="btn-group-vertical px-2">
-                                            <LoginRegisterModal>
-                                                Sign In/Register
-                                                </LoginRegisterModal>                                              
+                                              <LoginModal>
+                                                Sign In
+                                              </LoginModal>
+                                              <RegisterModal>
+                                                Register
+                                              </RegisterModal>                                            
                                             
                                                 
 
