@@ -57,9 +57,11 @@ To Do:
 
 The application has an MVC structure
 
-### 4. Additional Libraries Utilized
+### 4. Libraries Utilized
 
-This application uses Cryptr to encrypt the user's password upon the creation of a new account.
+This app requires React of course in addition to Node and Express.  Bootstrap is used for a lot of the CSS related things such as positioning and styling.
+
+This application also uses Cryptr to encrypt the user's password upon the creation of a new account.
 It uses Bootstrap-React for buttons and modals.
 
 ### 5. Routing
