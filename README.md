@@ -6,6 +6,8 @@ The objective of the game is to find the Holy Grail before the kingdom devolves 
 
 The gameplay revolves around tables from a pen and paper game called "Knight of Destiny" by Victor Jarmusz and Andrea Sfiligoi.  The combat uses a modified version taken from the old choose your adventure game "Grail Quest" by JH Brennan.
 
+The inspiration for the look and feel of the game comes from another RPG style game called "The Boring RPG" which you can find online and in GitHub incidently.
+
 ## Gameplay
 
 As the player's character progresses in the game, key stats are updated in the top Navbar.  These include the name of the character, hit points (health), piety, money, rebellion level, etc.
@@ -59,6 +61,11 @@ To Do:
 1. Add routes to display character information
 2. Add routes to display enemy NPC information
 3. Add routing to display quest log
+
+### 6. Deployment
+
+This application is not deployed anywhere.  While I'd like to deploy it to Heroku, I currently don't understand the steps to make this happen despite my utilization of Heroku in previous projects.  I do not understand how to go from the Dev environment to a Production build.
+
 
 ## Additional To Do's
 
