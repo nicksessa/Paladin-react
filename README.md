@@ -8,6 +8,16 @@ The gameplay revolves around tables from a pen and paper game called "Knight of 
 
 The inspiration for the look and feel of the game comes from another RPG style game called "The Boring RPG" which you can find online and in GitHub incidently.
 
+## Purpose - Why did I create this in the first place?
+
+I created this game for several reasons.
+
+1. I have an interest in history, specifically the medieval period.
+2. I like games, specifically games that revolve around knights, epic quests and things of that nature.
+3. I intend to use this game as a fun (I hope) teaching tool for my son in an effort to get him off the poison that is Minecraft (and other online games).
+4. I want to inspire people to read good literature.  (Amadis of Gaul, Don Quixote, Orlando Furioso, Orlando Innamorato, Song of Roland, The Divine Comedy, The Illiad and the Odyssey, the Holy Bible and more)
+
+
 ## Gameplay
 
 As the player's character progresses in the game, key stats are updated in the top Navbar.  These include the name of the character, hit points (health), piety, money, rebellion level, etc.
