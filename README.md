@@ -93,6 +93,8 @@ This application is not deployed anywhere.  While I'd like to deploy it to Herok
 10. Display a list of living and dead characters.
 11. Keep track of "kills"
 12. Create a Constructor for NPCs (and PCs?) to make their creation easier and more effecient.
+13. Allow the user to change the name of their paladin.
+14. Enable the Restart Game option.
 
 
 ## Notes
@@ -101,7 +103,7 @@ The worst thing about this project was learning React.  It seemed as though I on
 
 The second worst thing about this project was understanding Routing.  I still do not understand how it works.
 
-The most fun thing about this project was working with the actual logic of the game.  If this project were built soley in Bootstrap JavaScript, then it would have been a lot more fun AND I would have a product that was much more finished!
+The most fun thing about this project was working with the actual logic of the game.  If this project were built soley in Bootstrap, JQuery and JavaScript, then it would have been a lot more fun AND I would have a product that was much more finished!
 
 ## Things I learned:
 
@@ -115,6 +117,16 @@ Calling (importing) a JavaScript object seems to be a way to handle "global" var
 
 I still maintain that I really know next to nothing about this stuff in particular and life in general :-)
 
+
+## Summary
+
+In summation, I learned a few things about React but have a LONG way to go.  Taking a non-React application and converting it to React was extremely painful.  It's not the fact that I started with one application and went to React, but it's going from one way of thinking about programming and then completely changing it by going to another.  But I see the use of it and understand the need.  It'll take me some time to wrap my head around the concepts.
+
+I totally do not get routing (APIs).  I see a lot of work ahead of me in this department.
+
+I greatly enjoyed creating the game logic and if that was all I had to do, I would have been ectatic!
+
+I still do not quite understand GitHub and was thankful for being a team of one on this project and not having to worry about stepping on other people's toes.
 
 
 
